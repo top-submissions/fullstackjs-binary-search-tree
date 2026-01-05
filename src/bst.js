@@ -64,6 +64,59 @@ class Tree {
 
     return node;
   }
+
+  /**
+   * Deletes a value from the BST
+   * @param {number} value - Value to delete
+   */
+  deleteItem(value) {
+    this.root = this._deleteRec(this.root, value);
+  }
+
+  _deleteRec(node, value) {
+    if (node === null) {
+      return null;
+    }
+
+    // Find the node to delete
+    if (value < node.data) {
+      node.left = this._deleteRec(node.left, value);
+      return node;
+    } else if (value > node.data) {
+      node.right = this._deleteRec(node.right, value);
+      return node;
+    }
+
+    // Node to delete found - handle three cases:
+
+    // Case 1: Node with no children (leaf)
+    if (node.left === null && node.right === null) {
+      return null;
+    }
+
+    // Case 2: Node with one child
+    if (node.left === null) {
+      return node.right;
+    }
+    if (node.right === null) {
+      return node.left;
+    }
+
+    // Case 3: Node with two children
+    // Find inorder successor (smallest in right subtree)
+    let successor = node.right;
+    while (successor.left !== null) {
+      successor = successor.left;
+    }
+
+    // Replace node's data with successor's data
+    node.data = successor.data;
+
+    // Delete the successor
+    node.right = this._deleteRec(node.right, successor.data);
+
+    return node;
+  }
 }
 
 export { Tree, Node };
