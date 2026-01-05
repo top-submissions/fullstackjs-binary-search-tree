@@ -117,6 +117,27 @@ class Tree {
 
     return node;
   }
+
+  /**
+   * Finds and returns the node with the given value
+   * @param {number} value - Value to find
+   * @returns {Node|null} Node containing the value, or null if not found
+   */
+  find(value) {
+    return this._findRec(this.root, value);
+  }
+
+  _findRec(node, value) {
+    if (node === null || node.data === value) {
+      return node;
+    }
+
+    if (value < node.data) {
+      return this._findRec(node.left, value);
+    }
+
+    return this._findRec(node.right, value);
+  }
 }
 
 export { Tree, Node };
