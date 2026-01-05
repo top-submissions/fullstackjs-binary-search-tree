@@ -35,6 +35,35 @@ class Tree {
 
     return node;
   }
+
+  /**
+   * Inserts a value into the BST
+   * @param {number} value - Value to insert
+   */
+  insert(value) {
+    this.root = this._insertRec(this.root, value);
+  }
+
+  _insertRec(node, value) {
+    // Base case: found the position to insert
+    if (node === null) {
+      return new Node(value);
+    }
+
+    // Avoid duplicates
+    if (value === node.data) {
+      return node;
+    }
+
+    // Traverse left or right
+    if (value < node.data) {
+      node.left = this._insertRec(node.left, value);
+    } else {
+      node.right = this._insertRec(node.right, value);
+    }
+
+    return node;
+  }
 }
 
 export { Tree, Node };
