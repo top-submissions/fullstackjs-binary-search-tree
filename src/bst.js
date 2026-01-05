@@ -196,6 +196,63 @@ class Tree {
       this._levelOrderAtLevel(node.right, level - 1, callback);
     }
   }
+
+  /**
+   * Performs in-order (left-root-right) traversal
+   * @param {Function} callback - Function to call on each node
+   * @throws {Error} If no callback is provided
+   */
+  inOrderForEach(callback) {
+    this.isCallbackExists(callback);
+
+    this._inOrderRec(this.root, callback);
+  }
+
+  _inOrderRec(node, callback) {
+    if (node === null) return;
+
+    this._inOrderRec(node.left, callback);
+    callback(node);
+    this._inOrderRec(node.right, callback);
+  }
+
+  /**
+   * Performs pre-order (root-left-right) traversal
+   * @param {Function} callback - Function to call on each node
+   * @throws {Error} If no callback is provided
+   */
+  preOrderForEach(callback) {
+    this.isCallbackExists(callback);
+
+    this._preOrderRec(this.root, callback);
+  }
+
+  _preOrderRec(node, callback) {
+    if (node === null) return;
+
+    callback(node);
+    this._preOrderRec(node.left, callback);
+    this._preOrderRec(node.right, callback);
+  }
+
+  /**
+   * Performs post-order (left-right-root) traversal
+   * @param {Function} callback - Function to call on each node
+   * @throws {Error} If no callback is provided
+   */
+  postOrderForEach(callback) {
+    this.isCallbackExists(callback);
+
+    this._postOrderRec(this.root, callback);
+  }
+
+  _postOrderRec(node, callback) {
+    if (node === null) return;
+
+    this._postOrderRec(node.left, callback);
+    this._postOrderRec(node.right, callback);
+    callback(node);
+  }
 }
 
 export { Tree, Node };
