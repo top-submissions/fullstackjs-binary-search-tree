@@ -253,6 +253,50 @@ class Tree {
     this._postOrderRec(node.right, callback);
     callback(node);
   }
+
+  /**
+   * Returns the height of the node containing the given value
+   * Height is the number of edges in the longest path from the node to a leaf
+   * @param {number} value - Value to find
+   * @returns {number|null} Height of the node, or null if not found
+   */
+  height(value) {
+    const node = this.find(value);
+    if (node === null) return null;
+
+    return this._heightRec(node);
+  }
+
+  _heightRec(node) {
+    if (node === null) return -1;
+
+    const leftHeight = this._heightRec(node.left);
+    const rightHeight = this._heightRec(node.right);
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  /**
+   * Returns the depth of the node containing the given value
+   * Depth is the number of edges from the node to the root
+   * @param {number} value - Value to find
+   * @returns {number|null} Depth of the node, or null if not found
+   */
+  depth(value) {
+    return this._depthRec(this.root, value, 0);
+  }
+
+  _depthRec(node, value, currentDepth) {
+    if (node === null) return null;
+
+    if (node.data === value) return currentDepth;
+
+    if (value < node.data) {
+      return this._depthRec(node.left, value, currentDepth + 1);
+    }
+
+    return this._depthRec(node.right, value, currentDepth + 1);
+  }
 }
 
 export { Tree, Node };
