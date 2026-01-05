@@ -297,6 +297,42 @@ class Tree {
 
     return this._depthRec(node.right, value, currentDepth + 1);
   }
+
+  /**
+   * Checks if the tree is balanced
+   * A tree is balanced if the height difference between left and right subtrees
+   * is no more than 1 for every node
+   * @returns {boolean} True if balanced, false otherwise
+   */
+  isBalanced() {
+    return this._isBalancedRec(this.root) !== -1;
+  }
+
+  _isBalancedRec(node) {
+    if (node === null) return 0;
+
+    const leftHeight = this._isBalancedRec(node.left);
+    if (leftHeight === -1) return -1;
+
+    const rightHeight = this._isBalancedRec(node.right);
+    if (rightHeight === -1) return -1;
+
+    // Check balance condition for current node
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      return -1;
+    }
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+
+  /**
+   * Rebalances an unbalanced tree
+   */
+  rebalance() {
+    const values = [];
+    this.inOrderForEach((node) => values.push(node.data));
+    this.root = this.buildTree(values);
+  }
 }
 
 export { Tree, Node };
