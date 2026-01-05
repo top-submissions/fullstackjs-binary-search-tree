@@ -138,6 +138,64 @@ class Tree {
 
     return this._findRec(node.right, value);
   }
+
+  isCallbackExists(callback) {
+    if (!callback) {
+      throw new Error('Callback function is required');
+    }
+  }
+
+  /**
+   * Performs level-order (breadth-first) traversal
+   * @param {Function} callback - Function to call on each node
+   * @throws {Error} If no callback is provided
+   */
+  levelOrderForEach(callback) {
+    this.isCallbackExists(callback);
+
+    if (this.root === null) return;
+
+    const queue = [this.root];
+
+    while (queue.length > 0) {
+      const node = queue.shift();
+      callback(node);
+
+      if (node.left !== null) {
+        queue.push(node.left);
+      }
+      if (node.right !== null) {
+        queue.push(node.right);
+      }
+    }
+  }
+
+  /**
+   * Performs level-order traversal using recursion
+   * @param {Function} callback - Function to call on each node
+   * @throws {Error} If no callback is provided
+   */
+  levelOrderForEachRecursive(callback) {
+    this.isCallbackExists(callback);
+
+    const height = this.height(this.root?.data);
+    if (height === null) return;
+
+    for (let level = 0; level <= height; level++) {
+      this._levelOrderAtLevel(this.root, level, callback);
+    }
+  }
+
+  _levelOrderAtLevel(node, level, callback) {
+    if (node === null) return;
+
+    if (level === 0) {
+      callback(node);
+    } else {
+      this._levelOrderAtLevel(node.left, level - 1, callback);
+      this._levelOrderAtLevel(node.right, level - 1, callback);
+    }
+  }
 }
 
 export { Tree, Node };
