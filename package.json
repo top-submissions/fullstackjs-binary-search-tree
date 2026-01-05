@@ -1,0 +1,35 @@
+{
+  "name": "fullstackjs-binary-search-tree",
+  "version": "1.0.0",
+  "description": "A JavaScript implementation of a balanced Binary Search Tree with traversal and manipulation methods",
+  "main": "src/bst.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/driver.js"
+  },
+  "keywords": [
+    "binary-search-tree",
+    "data-structures",
+    "algorithms",
+    "javascript",
+    "tree-traversal",
+    "balanced-tree",
+    "bst",
+    "computer-science",
+    "the-odin-project",
+    "recursion"
+  ],
+  "author": "The Odin Project Student",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/top-submissions/fullstackjs-binary-search-tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/top-submissions/fullstackjs-binary-search-tree/issues"
+  },
+  "homepage": "https://github.com/top-submissions/fullstackjs-binary-search-tree#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
